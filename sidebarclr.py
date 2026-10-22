@@ -28,6 +28,7 @@ if jugador:
 nombre = clash_data[clash_data["name"].str.contains(jugador, case = False, na = False)]
 
 if sidebar.button ('Buscar'):
+    
      st.dataframe(nombre)
 
 copas_de_jugadores = sidebar.slider(
@@ -36,5 +37,27 @@ copas_de_jugadores = sidebar.slider(
     max_value=int(clash_data['trophies'].max())
 
 )
+
 filtro_copas = clash_data[clash_data["trophies"] == copas_de_jugadores]
+st.write ("Copas")
 st.dataframe(filtro_copas)
+
+lista_de_jugadores = sidebar.selectbox("Seleccion de jugador", clash_data['name'].unique()) 
+
+st.write(f"Selectes Option: {lista_de_jugadores!r}")
+lista_de_jugadores = clash_data[clash_data['name'] == lista_de_jugadores]
+
+st.dataframe(lista_de_jugadores)
+
+experiencia = sidebar.radio(
+    "Selecciona el nivel de experiencia:",
+    clash_data["explevel"].unique()
+)
+
+nivel_del_jugador = clash_data[
+    clash_data["explevel"] == experiencia
+]
+
+st.write("Nivel")
+st.dataframe(nivel_del_jugador)
+
